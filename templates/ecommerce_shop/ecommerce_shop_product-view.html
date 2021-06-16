@@ -11,7 +11,13 @@
             <div class="col m6 s12">
                 <h3>{{ product.title }}</h3>
                 <p><b>Описание:</b><br>{{ product.description }}</p>
-                <p><b>Цена:</b><br>{{ product.current_price }} $</p>
+
+                {% if product.discount %}
+                    <p><b>Цена:</b><br><span style="text-decoration: line-through">{{ product.price }} $</span></p>
+                    <p><b>Акционная Цена:</b><br>{{ product.discount }} $</p>
+                {% else %}
+                    <p><b>Цена:</b><br>{{ product.price }} $</p>
+                {% endif %}
             </div>
         </div>
     </div>

@@ -30,10 +30,6 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('product', kwargs={'slug': self.category.slug, 'product_slug': self.slug})
 
-    @property
-    def current_price(self):
-        return self.discount if self.discount else self.price
-
     class Meta:
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
