@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Каталог{% endblock %}
+
+{% block content %}
+    {% if product_list %}
+        <div class="container">
+            <div class="row">
+                {% for product in product_list %}
+                    <div class="col s12 m6 mt">
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="{{ product.image.url }}" alt="{{ product.title }}" height="200px">
+                            </div>
+                            <div class="card-content" style="min-height: 176px">
+                                <div class="card-title">{{ product.title | truncatechars:30 }}</div>
+                                {{ product.description | truncatechars:250 }}
+                            </div>
+                            <div class="card-action">
+                                <a href="{{ product.get_absolute_url }}">
+                                    Перейти на страницу продукта
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    {% endif %}
+    {% if page_obj.has_other_pages %}
+        <div class="container mt">
+            <ul class="pagination">
+                <li class="{% if not page_obj.has_previous %}disabled{% endif %}"><a
+                        href="?page={% if page_obj.has_previous %}{{ page_obj.previous_page_number }}{% else %}{{ page_obj.start_index }}{% endif %}"><i
+                        class="material-icons">chevron_left</i></a>
+                </li>
+                {% for n in page_obj.paginator.page_range %}
+                    {% if n > page_obj.number|add:-3 and n < page_obj.number|add:3 %}
+                        <li class="waves-effect {% if n == page_obj.number %}active{% endif %}"><a href="?page={{ n }}">{{ n }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                <li class="waves-effect {% if not page_obj.has_next %}disabled{% endif %}"><a
+                        href="?page={% if page_obj.has_next %}{{ page_obj.next_page_number }}{% else %}{{ page_obj.end_index }}{% endif %}"><i
+                        class="material-icons">chevron_right</i></a>
+                </li>
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}

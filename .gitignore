@@ -1,0 +1,8 @@
+venv/
+static/
+!ecommerce_shop/static/
+__pycache__/
+db.sqlite3
+.idea
+media/
+ecommerce/local_settings.py
